@@ -1,6 +1,6 @@
 # STGCN-SWMV
 
-This is the code, data repository and pre-trained models for our work : **A Sliding Window Based Approach With Majority Voting for Online Human Action Recognition using Spatial Temporal Graph Convolutional Neural Networks**.
+This is the code, data repository and pre-trained models for our work :
 
 ## Introduction
 
@@ -15,100 +15,84 @@ Install all required libraries by running :
 pip install -r requirements.txt
 cd torchlight & python setup.py install & cd ..
 ```
+## Demo
+We provided demo file for trainning and testing our model
+```
+jupyter Test.IPYNB
+```
 
+## Dataset 
+- (MMFit)[https://mmfit.github.io/]
+
+  
 ## Download data and pre-trained models
 We provided the data and the pre-trained models of our **STGCN-SWMV** method for the OAD and UOW datasets. To download them, please run these scripts :
 ```
 bash tools/rsc/get_data.sh
 bash tools/rsc/get_weights.sh
 ```
+
 **For Windows users :**
 
 First, download WGet.exe from this link : [WGet](https://eternallybored.org/misc/wget/1.20.3/64/wget.exe) and copy it to the Windows/System32 directory.
 Then open bash files with [GIT](https://git-scm.com/download/win).
 
+## Work in progress
+- [x] Action detection based on sliding windows and 3D skeleton dataset
+- [x] Process real-time video and output result
+- [ ] Add Rep-Recognizatoin module (Detect completeness)
+- [x] Data-Proprocess: transforms input data into the relative coordinate system with the center-of-the-spine joint as the origin.
+- [ ] Add completeness and angle infomation into GCN
+
+
 ## Results
 
-Here are our results using the STGCN-SWMV method on the OAD and UOW online skeleton-based datasets.
+Here are our results using the STGCN-SWMV method on the MMFIT online skeleton-based datasets.
 
-**OAD:**
+**MMFIT:**
 <p align="center">
-	<img src="rsc/OAD Confusion Matrix.png" alt="OAD Confusion Matrix">
+	<img src="rsc/MMFIT Confusion Matrix.png" alt="MMFIT Confusion Matrix">
 </p>
 
 | Actions | Results | 
 |:-------:|:-------:|
-| Drinking | 0.979 |
-| Eating | 1.000 |
-| Writing | 0.993 |
-| Opening cupboard | 1.000 |
-| Washing hands | 1.000 |
-| Opening microwave | 0.963 |
-| Sweeping | 0.996 |
-| Gargling | 0.984 |
-| Trowing trash | 0.949 |
-| Wiping | 0.973 |
-| **Overall** | **0.954** |
+| Squat | 1.000|
+| Lunge | 0.998|
+| Bicep Curl | 0.999 |
+| Sit up| 1.000|
+| Pushup| 1.000|
+| Tricep Extension| 1.000|
+|dumbbell_row| 1.000|
+|jumping jack|1.000|
+|dumbbell shoulder press|1.000|
+|lateral shoulder raise|1.000|
+| **Overall** | **0.9996** |
 
-**UOW:**
-<p align="center">
-	<img src="rsc/UOW Confusion Matrix.png" alt="UOW Confusion Matrix">
-</p>
-
-| Actions | Results | 
-|:-------:|:-------:|
-| High arm wave | 0.892 |
-| Horizontal arm wave | 0.971 |
-| Hammer | 1.000 |
-| Hand catch | 0.857 |
-| Forward punch | 0.929 |
-| High Throw | 0.900 |
-| Draw X | 0.969 |
-| Draw Tick | 1.000 |
-| Draw circle | 0.952 |
-| Hand clap | 0.966 |
-| Two Hand wave | 1.000 |
-| Side boxing | 0.972 |
-| Bend | 1.000 |
-| Forward kick | 0.900 |
-| Side kick | 1.000 |
-| Jogging | 1.000 |
-| Tennis swing | 0.974 |
-| Tennis serve | 0.953 |
-| Golf swing | 0.917 |
-| Pick up and Throw | 0.917 |
-| **Overall** | **0.934** |
 
 ## Test models
 
 To test the **STGCN-SWMV** method and replicate our results, please run :
 
-**For the OAD dataset :**
+**For the MMFIT dataset :**
 
-```python main.py stgcn_swmv --dataset=OAD --use_gpu=True -c config/stgcn_swmv/OAD/test.yaml```
+```python main.py stgcn_swmv --dataset=MMFIT --use_gpu=True -c config/stgcn_swmv/MMFIT/test.yaml```
 
-**For the UOW dataset :**
-
-```python main.py stgcn_swmv --dataset=UOW --use_gpu=True -c config/stgcn_swmv/UOW/test.yaml```
 
 ## Training from scratch
 
 To train the **STGCN-SWMV** method from the scratch, please run :
 
-**For the OAD dataset :**
+**For the MMFIT dataset :**
 
-```python main.py stgcn_swmv --dataset=OAD --use_gpu=True -c config/stgcn_swmv/OAD/train.yaml```
+```python main.py stgcn_swmv --dataset=MMFIT --use_gpu=True -c config/stgcn_swmv/MMFIT/train.yaml```
 
-**For the UOW dataset :**
-
-```python main.py stgcn_swmv --dataset=UOW --use_gpu=True -c config/stgcn_swmv/UOW/train.yaml```
 
 **NOTE** : If --use_gpu is set to true make sure you have installed [CUDA](https://developer.nvidia.com/cuda-downloads) and [cuDNN](https://developer.nvidia.com/cudnn) for GPU acceleration.
 Set --use_gpu to False if you want to use CPU instead.
 Make sure also to set the ```device``` parameter in the .yaml config files situated in config/stgn_swmv/Dataset_name/train.yaml to the number of GPUs on your computer.
 If you encountred memory errors try to reduce the ```batch_size```.
 
-If you any questions or problems regarding the code, please contact us at : <mejdi.dallel@gmail.com> / <mdallel@cesi.fr>.
+If you any questions or problems regarding the code, please contact us at : <qgao14@jhu.edu>.
 
 ## Citation
 To cite this work, please use:
