@@ -1,0 +1,42 @@
+# command line: main.py stgcn_swmv --dataset=MMFIT --use_gpu=True -c config/stgcn_swmv/MMFIT/test.yaml
+
+base_lr: 0.01
+batch_size: 256
+config: config/stgcn_swmv/MMFIT/test.yaml
+dataset: MMFIT
+debug: false
+device: 0
+eval_interval: 1
+ignore_weights: []
+loader: tools.loader.Loader
+log_interval: 100
+model: network.stgcn_swmv.Model
+model_args:
+    dropout: 0.5
+    edge_importance_weighting: true
+    graph_args:
+        layout: skeleton_layout
+        strategy: spatial
+    in_channels: 3
+    num_class: 11
+nesterov: true
+num_epoch: 80
+num_worker: 4
+optimizer: SGD
+pavi_log: false
+phase: test
+print_log: true
+save_interval: 1
+save_log: true
+save_result: false
+start_epoch: 0
+step: []
+test_batch_size: 1
+test_loader_args:
+    data_path: ./data/MMFIT/mmfit_test_data.npy
+    label_path: ./data/MMFIT/mmfit_test_label.pkl
+train_loader_args: {}
+use_gpu: true
+weight_decay: 0.0001
+weights: ./weights/MMFIT/mmfit_model.pt
+work_dir: ./work_dir/temp
