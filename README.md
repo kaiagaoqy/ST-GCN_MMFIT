@@ -1,4 +1,4 @@
-# STGCN-SWMV
+# STGCN-for-MMFIT
 
 This is the code, data repository and pre-trained models for our work :
 
@@ -18,7 +18,7 @@ cd torchlight & python setup.py install & cd ..
 ## Demo
 We provided demo file for trainning and testing our model
 ```
-jupyter Test.IPYNB
+jupyter DEMO.ipynb
 ```
 
 ## Dataset 
