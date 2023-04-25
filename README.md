@@ -20,6 +20,9 @@ We provided demo file for trainning and testing our model
 ```
 jupyter DEMO.ipynb
 ```
+<p align="center">
+	<img src="rsc/ui_demo.png" alt="DEMO for results">
+</p>
 
 ## Dataset 
 - (MMFit)[https://mmfit.github.io/]
