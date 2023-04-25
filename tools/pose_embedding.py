@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 import os
-from matplotlib import pyplot as plt
+# from matplotlib import pyplot as plt
 import time
 import mediapipe as mp
 
@@ -71,7 +71,7 @@ def extract_keypoints(results):
     pose：shape（132, ) 
      '''
     embedder = FullBodyPoseEmbedder(train_flag=False)
-    pose = np.array([[res.x, res.y, res.z] for res in results.pose_landmarks.landmark],dtyoe="float32") if results.pose_landmarks else np.zeros(33*3)
+    pose = np.array([[res.x, res.y, res.z] for res in results.pose_landmarks.landmark],dtype="float32") if results.pose_landmarks else np.zeros([33,3])
     pose = embedder(pose)
     #face = np.array([[res.x, res.y, res.z] for res in results.face_landmarks.landmark]).flatten() if results.face_landmarks else np.zeros(468*3)
     #lh = np.array([[res.x, res.y, res.z] for res in results.left_hand_landmarks.landmark]).flatten() if results.left_hand_landmarks else np.zeros(21*3)
@@ -79,17 +79,18 @@ def extract_keypoints(results):
     return np.concatenate([pose])
 
 
-colors = [(245,117,16), (117,245,16), (16,117,245),(220,220,220),(255,235,215)]
-def prob_viz(res, actions, input_frame, colors):
+colors = [(245,117,16), (117,245,16), (16,117,245),(220,220,220),(250,128,114),(255,160,122),(255,69,0),(255,140,0),(255,165,0),(255,215,0),(184,134,11)]
+def prob_viz(res, actions, input_frame, colors=colors):
     output_frame = input_frame.copy()
-    res[np.isnan(res)] = 0
+    res[np.isnan(res).astype(int)] = 0
     for num, prob in enumerate(res):
         cv2.rectangle(output_frame, (0,60+num*40), (int(prob*100), 90+num*40), colors[num], -1)
         cv2.putText(output_frame, actions[num], (0, 85+num*40), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2, cv2.LINE_AA)
         
+        
     return output_frame
 
-"""# 人体姿态编码"""
+"""# Body pose Encoder"""
 
 
 class FullBodyPoseEmbedder(object):
@@ -141,10 +142,11 @@ class FullBodyPoseEmbedder(object):
     landmarks = self._normalize_pose_landmarks(landmarks)
 
     # Get embedding.
-    #embedding = self._get_pose_distance_embedding(landmarks)
+    embedding = self._get_pose_distance_embedding(landmarks)
+    
 
     #return embedding
-    return landmarks
+    return embedding
 
   def _normalize_pose_landmarks(self, landmarks):
     """Normalizes landmarks translation and scale."""
